@@ -105,7 +105,7 @@ RUN docker-php-ext-enable \
     pcntl
 
 # Install dev dependencies
-RUN echo "$IMAGE_VERSION" | grep "devel" \
+RUN echo "$IMAGE_VERSION" | grep "\-devel" \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
@@ -115,7 +115,27 @@ RUN echo "$IMAGE_VERSION" | grep "devel" \
         unzip \
         zip \
         git \
-    && docker-php-source delete; true
+    && docker-php-source delete \
+    ; true
+
+# Install CLI tools
+RUN echo "$IMAGE_VERSION" | grep "\-cli" \
+    && apk --update --no-cache add \
+        bash \
+    ; true
 
 # Copy config files
 COPY files/all/. /
+
+# Prepare application folder
+RUN mkdir /app \
+    && addgroup --system app \
+    && adduser \
+        --system \
+        --home /app \
+        --shell /bin/shell \
+        app app \
+    && chown app:app /app
+
+USER app
+WORKDIR /app
