@@ -9,8 +9,6 @@ USER root
 
 # Install extension dependencies
 RUN apk --update --no-cache add --virtual .ext-deps \
-        git \
-        unzip \
         bzip2-dev \
         libjpeg-turbo-dev \
         libpng-dev \
@@ -24,8 +22,7 @@ RUN apk --update --no-cache add --virtual .ext-deps \
         libxslt-dev \
         yaml-dev \
         libzip-dev \
-        libsodium-dev \
-        zip
+        libsodium-dev
 
 # Configure and install dependencies
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
@@ -50,6 +47,7 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
         xsl \
         zip \
         pcntl \
+        curl \
         json
 
 # Install PECL extensions
@@ -104,4 +102,11 @@ RUN docker-php-ext-enable \
 # Install dev dependencies
 RUN echo "$IMAGE_VERSION" | grep "devel" \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && docker-php-ext-enable xdebug \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && apk --update --no-cache add \
+        curl \
+        git \
+        unzip \
+        zip \
+    && docker-php-source delete
