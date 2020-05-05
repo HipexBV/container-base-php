@@ -1,0 +1,3 @@
+ARG VERSION=7.4
+
+FROM php:${VERSION}
