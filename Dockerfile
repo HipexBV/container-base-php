@@ -102,6 +102,6 @@ RUN docker-php-ext-enable \
     pcntl
 
 # Install dev dependencies
-RUN if [[ ${VERSION} == *"devel"* ]]; then \
-    pecl install xdebug && docker-php-ext-enable xdebug; \
-    fi
+RUN echo "$IMAGE_VERSION" | grep "devel" \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
