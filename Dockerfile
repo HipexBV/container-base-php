@@ -116,3 +116,6 @@ RUN echo "$IMAGE_VERSION" | grep "devel" \
         zip \
         git \
     && docker-php-source delete; true
+
+# Copy config files
+COPY files/all/. /
