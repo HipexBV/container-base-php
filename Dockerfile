@@ -8,7 +8,6 @@ ARG PHP_VERSION
 
 USER root
 
-# Install extension dependencies
 RUN apk --update --no-cache add --virtual .ext-deps \
         bzip2-dev \
         libjpeg-turbo-dev \
@@ -26,9 +25,12 @@ RUN apk --update --no-cache add --virtual .ext-deps \
         libsodium-dev \
         curl-dev \
         bash
-# Copy build scripts
-COPY /build /build
-RUN run-parts /build && rm -Rf /build
+
+# Run build scripts
+COPY build /build
+RUN ls -alh /build \
+    && for FILE in /build/*.sh; do bash "$FILE" -H; done \
+    && rm -Rf /build
 
 # Copy config files
 COPY files/all/. /
