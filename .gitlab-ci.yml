@@ -9,7 +9,7 @@ stages:
 .build:
     stage: build
     script:
-    - build.sh --build-arg VERSION=$PHP_VERSION --build-arg IMAGE_VERSION=$VERSION .
+    - build.sh --build-arg PHP_VERSION=$PHP_VERSION --build-arg IMAGE_VERSION=$VERSION .
     only:
     - tags
     - master

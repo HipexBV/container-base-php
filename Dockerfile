@@ -60,7 +60,7 @@ RUN apk --update --no-cache add --virtual .build-deps $PHPIZE_DEPS \
         imagick \
         redis \
         yaml \
-        libsodium
+        sodium
 
 # Install workarround zlib
 RUN docker-php-ext-install zlib \
@@ -102,6 +102,6 @@ RUN docker-php-ext-enable \
     pcntl
 
 # Install dev dependencies
-RUN test [[ "${IMAGE_VERSION}" == *"-devel" ]] \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+RUN if [[ ${VERSION} == *"devel"* ]]; then \
+    pecl install xdebug && docker-php-ext-enable xdebug; \
+    fi
