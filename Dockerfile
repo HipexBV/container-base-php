@@ -25,9 +25,13 @@ RUN apk --update --no-cache add --virtual .ext-deps \
         libsodium-dev \
         curl-dev
 
+# Configure GD based on PHP version
+RUN echo "$IMAGE_VERSION" | grep "7.2" && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; true
+RUN echo "$IMAGE_VERSION" | grep "7.3" && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; true
+RUN echo "$IMAGE_VERSION" | grep "7.4" && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/; true
+
 # Configure and install dependencies
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-    && docker-php-ext-configure opcache --enable-opcache \
+RUN docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) \
         bcmath \
         bz2 \
