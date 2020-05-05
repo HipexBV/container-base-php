@@ -28,22 +28,12 @@ RUN apk --update --no-cache add --virtual .ext-deps \
 
 # Run build scripts
 COPY build /build
-RUN ls -alh /build \
-    && for FILE in /build/*.sh; do bash "$FILE" -H; done \
+RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H; done \
     && rm -Rf /build
 
 # Copy config files
 COPY files/all/. /
 
-# Prepare application folder
-RUN mkdir /app \
-    && addgroup --system app \
-    && adduser \
-        --system \
-        --home /app \
-        --shell /bin/shell \
-        app app \
-    && chown app:app /app
-
+# Prepare environment
 USER app
 WORKDIR /app
