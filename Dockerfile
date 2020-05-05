@@ -22,7 +22,8 @@ RUN apk --update --no-cache add --virtual .ext-deps \
         libxslt-dev \
         yaml-dev \
         libzip-dev \
-        libsodium-dev
+        libsodium-dev \
+        curl-dev
 
 # Configure and install dependencies
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
@@ -109,4 +110,5 @@ RUN echo "$IMAGE_VERSION" | grep "devel" \
         git \
         unzip \
         zip \
+        git \
     && docker-php-source delete
