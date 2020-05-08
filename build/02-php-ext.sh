@@ -10,6 +10,10 @@ else
     docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 fi
 
+if [[ "$PHP_VERSION" =~ ^7.0 ]]; then
+    ln -s /usr/include/tidybuffio.h /usr/include/buffio.h
+fi
+
 docker-php-ext-install -j$(nproc) \
     bcmath \
     bz2 \
