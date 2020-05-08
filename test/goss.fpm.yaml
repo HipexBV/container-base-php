@@ -1,0 +1,20 @@
+file:
+    /usr/local/etc/php/conf.d/zz-hipex.ini:
+        exists: true
+        filetype: file
+
+command:
+    php -v:
+        stdout:
+            - {{getEnv "PHP_VERSION"}}
+        stderr: []
+        timeout: 0
+
+port:
+    tcp:9000:
+        listening: true
+
+service:
+    phpfpm:
+        enabled: true
+        running: true
