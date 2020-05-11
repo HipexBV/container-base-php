@@ -3,20 +3,12 @@
 set -e
 
 mkdir /app
-if [[ "$PHP_VERSION" =~ ^7.0 ]]; then
-    addgroup -S app
-    adduser \
-        -S \
-        -h /app \
-        -s /bin/shell \
-        app app
-else
-    addgroup --system app
-    adduser \
-        --system \
-        --home /app \
-        --shell /bin/shell \
-        app app
-fi
+addgroup -S app -g 5000
+adduser \
+    -S \
+    -h /app \
+    -s /bin/shell \
+    -u 5000 \
+    app app
 
 chown app:app /app
