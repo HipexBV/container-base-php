@@ -4,10 +4,9 @@ set -e
 
 function envreplace() {
     TEMPLATE_FILE=$1
-    CONTENT=$(envsubst < "${TEMPLATE_FILE}")
     FILE="${TEMPLATE_FILE%.*}"
     echo "Replacing hipex template ${TEMPLATE_FILE} to ${FILE}"
-    echo "${CONTENT}" > "${FILE}"
+    envsubst < "${TEMPLATE_FILE}" > "${FILE}"
 }
 
 export -f envreplace
