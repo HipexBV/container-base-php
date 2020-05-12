@@ -25,7 +25,8 @@ RUN apk --update --no-cache add --virtual .ext-deps \
         libsodium-dev \
         curl-dev \
         bash \
-        gettext
+        gettext \
+        rsync
 
 # Run build scripts
 COPY build /build
