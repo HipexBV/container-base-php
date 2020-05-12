@@ -57,13 +57,18 @@ pecl install -o -f \
     igbinary \
     imagick \
     redis \
-    yaml \
-    sodium
+    yaml
 
 # Install workaround zlib
 docker-php-ext-install zlib || true
 cp /usr/src/php/ext/zlib/config0.m4 /usr/src/php/ext/zlib/config.m4
 docker-php-ext-install zlib
+
+# Install libsodium
+if [[ "$PHP_VERSION" =~ ^7.[0-1] ]]; then
+    pecl install -o -f libsodium
+    docker-php-ext-enable sodium
+fi
 
 # Cleanup build dependencies
 docker-php-source delete \
@@ -86,7 +91,6 @@ docker-php-ext-enable \
     redis \
     soap \
     sockets \
-    sodium \
     sysvmsg \
     sysvsem \
     sysvshm \
