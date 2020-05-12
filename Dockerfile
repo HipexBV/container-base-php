@@ -29,7 +29,7 @@ RUN apk --update --no-cache add --virtual .ext-deps \
 
 # Run build scripts
 COPY build /build
-RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H; done \
+RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H || exit 1; done \
     && rm -Rf /build
 
 # Copy config files

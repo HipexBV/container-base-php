@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+set -o xtrace
 
 docker-php-ext-configure opcache --enable-opcache
 
@@ -14,6 +15,7 @@ if [[ "$PHP_VERSION" =~ ^7.0 ]]; then
     ln -s /usr/include/tidybuffio.h /usr/include/buffio.h
 fi
 
+# Install build dependencies
 docker-php-ext-install -j$(nproc) \
     bcmath \
     bz2 \
@@ -37,15 +39,26 @@ docker-php-ext-install -j$(nproc) \
     curl \
     json
 
-# Install PECL extensions
-apk --update --no-cache add --virtual .build-deps "${PHPIZE_DEPS}" \
-    && pecl install -o -f \
-        geoip-1.1.1 \
-        igbinary \
-        imagick \
-        redis \
-        yaml \
-        sodium
+# shellcheck disable=SC2086
+apk --update --no-cache add --virtual .build-deps ${PHPIZE_DEPS} \
+  git
+
+# Compile and install snappy
+git clone --recursive --depth=1 https://github.com/kjdev/php-ext-snappy.git
+cd php-ext-snappy
+phpize
+./configure
+make
+make install
+
+# Install pecl extensions
+pecl install -o -f \
+    geoip-1.1.1 \
+    igbinary \
+    imagick \
+    redis \
+    yaml \
+    sodium
 
 # Install workaround zlib
 docker-php-ext-install zlib
@@ -84,4 +97,5 @@ docker-php-ext-enable \
     zip \
     zlib \
     json \
-    pcntl
+    pcntl \
+    snappy
