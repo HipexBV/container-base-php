@@ -37,3 +37,4 @@ COPY files/all/. /
 # Prepare environment
 USER app
 WORKDIR /app
+ENTRYPOINT ["hipex-entry-point.sh"]
