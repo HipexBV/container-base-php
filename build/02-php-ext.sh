@@ -61,7 +61,7 @@ pecl install -o -f \
     sodium
 
 # Install workaround zlib
-docker-php-ext-install zlib
+docker-php-ext-install zlib || true
 cp /usr/src/php/ext/zlib/config0.m4 /usr/src/php/ext/zlib/config.m4
 docker-php-ext-install zlib
 
