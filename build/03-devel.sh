@@ -9,6 +9,11 @@ else
     exit 0
 fi
 
+if [[ "$PHP_VERSION" =~ ^7.[0] ]]; then
+    echo "Skipped, xdebug no longer supported for php version"
+    exit 0
+fi
+
 # Install xdebug
 pecl install xdebug
 docker-php-ext-enable xdebug
