@@ -24,6 +24,4 @@ if [ -z "${1#-}" ]; then
     fi
 fi
 
-echo "$@"
-
 exec docker-php-entrypoint "$@"
