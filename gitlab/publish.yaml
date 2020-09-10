@@ -99,5 +99,5 @@ publish:7.4-devel:
 publish:7.4-fpm:
     extends:
     - .publish
-    - .fpm
+    - .7.4-fpm
 
