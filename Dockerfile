@@ -1,6 +1,6 @@
 ARG PHP_VERSION=7.4-cli
 
-FROM php:${PHP_VERSION}-alpine
+FROM php:${PHP_VERSION}-buster
 LABEL maintainer="Hipex.io <info@hipex.io>"
 
 ARG IMAGE_VERSION
@@ -8,30 +8,32 @@ ARG PHP_VERSION
 
 USER root
 
-RUN apk --update --no-cache add --virtual .ext-deps \
-        bzip2-dev \
-        libjpeg-turbo-dev \
-        libpng-dev \
-        freetype-dev \
-        geoip-dev \
-        wget \
-        gmp-dev \
-        imagemagick-dev \
-        icu-dev \
-        tidyhtml-dev \
-        libxslt-dev \
-        yaml-dev \
-        libzip-dev \
-        libsodium-dev \
-        curl-dev \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        openssh-client \
+        rsync \
+        git \
+        patch \
         bash \
-        gettext \
-        rsync
+        ca-certificates \
+        wget \
+        curl \
+        openssl \
+        g++ \
+        autoconf \
+        make \
+        libtool \
+        docker \
+        gnupg \
+        zip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install php extensions
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
 # Run build scripts
 COPY build /build
-RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H || exit 1; done \
-    && rm -Rf /build
+RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H || exit 1; done
 
 # Copy config files
 COPY files/all/. /
