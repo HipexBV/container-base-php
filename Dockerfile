@@ -1,6 +1,6 @@
 ARG PHP_VERSION=7.4-cli
 
-FROM php:${PHP_VERSION}-buster
+FROM php:${PHP_VERSION}
 LABEL maintainer="Hipex.io <info@hipex.io>"
 
 ARG IMAGE_VERSION
@@ -31,9 +31,51 @@ RUN apt-get update && \
 # Install php extensions
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
-# Run build scripts
-COPY build /build
-RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H || exit 1; done
+# Install PHP extensions
+RUN install-php-extensions \
+    bcmath \
+    bz2 \
+    exif \
+    gd \
+    gmp \
+    igbinary \
+    imagick \
+    intl \
+    mysqli \
+    opcache \
+    pdo_mysql \
+    redis \
+    soap \
+    sockets \
+    sysvmsg \
+    sysvsem \
+    sysvshm \
+    tidy \
+    xmlrpc \
+    xsl \
+    yaml \
+    zip \
+    zlib \
+    json \
+    pcntl
+
+# Prepare dev image
+RUN if echo "$IMAGE_VERSION" | grep -q '-devel$'; then echo "Preparing development image" \
+    && install-php-extensions xdebug \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    ; fi
+
+# Prepare user
+RUN mkdir /app \
+    && addgroup --system app --gid 5000 \
+    && adduser \
+        --system \
+        --home /app \
+        --shell /bin/shell \
+        --uid 5000 \
+        --gid 5000 \
+        app \
+    && chown app:app /app
 
 # Copy config files
 COPY files/all/. /

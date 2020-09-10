@@ -11,6 +11,13 @@ stages:
     - tags
     - merge_requests
 
+.docker:
+    variables:
+        CI_REGISTRY: 'git-registry.emico.nl'
+        CI_REGISTRY_IMAGE: "git-registry.emico.nl/$CI_PROJECT_PATH"
+    before_script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
+
 include:
 - '/gitlab/variables.yaml'
 - '/gitlab/quality.yaml'

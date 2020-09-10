@@ -6,7 +6,9 @@
     services:
     - name: docker:19.03.12-dind
       command: ["--experimental"]
-    extends: .default
+    extends:
+    - .default
+    - .docker
     variables:
         DOCKER_DRIVER: overlay2
         DOCKER_BUILDKIT: 1
@@ -15,43 +17,16 @@
     script:
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
     - docker pull "${CI_REGISTRY_IMAGE}:cache" || true
-    - docker build --cache-from "${CI_REGISTRY_IMAGE}:cache" --tag "${CI_REGISTRY_IMAGE}:cache" --tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
-    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
-    - docker push "${CI_REGISTRY_IMAGE}:cache"
-
-# PHP 7.0
-###########################
-build:7.0-cli:
-    extends:
-    - .build
-    - .7.0-cli
-
-build:7.0-devel:
-    extends:
-    - .build
-    - .7.0-devel
-
-build:7.0-fpm:
-    extends:
-    - .build
-    - .7.0-fpm
-
-# PHP 7.1
-###########################
-build:7.1-cli:
-    extends:
-    - .build
-    - .7.1-cli
-
-build:7.1-devel:
-    extends:
-    - .build
-    - .7.1-devel
-
-build:7.1-fpm:
-    extends:
-    - .build
-    - .7.1-fpm
+    - |
+        docker build \
+            --build-arg PHP_VERSION=$PHP_VERSION \
+            --build-arg IMAGE_VERSION=${VERSION} \
+            --cache-from "${CI_REGISTRY_IMAGE}/${VERSION}:cache" \
+            --tag "${CI_REGISTRY_IMAGE}/${VERSION}:cache" \
+            --tag "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}" \
+            .
+    - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}"
+    - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:cache"
 
 # PHP 7.2
 ###########################

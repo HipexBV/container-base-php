@@ -6,49 +6,17 @@
     services:
     - name: docker:19.03.12-dind
       command: ["--experimental"]
+    extends:
+    - .default
+    - .docker
     only:
     - tags
-    extends: .default
     stage: publish
     script:
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
-    - docker pull "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
-    - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
-    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
-
-# PHP 7.0
-###########################
-publish:7.0-cli:
-    extends:
-    - .publish
-    - .7.0-cli
-
-publish:7.0-devel:
-    extends:
-    - .publish
-    - .7.0-devel
-
-publish:7.0-fpm:
-    extends:
-    - .publish
-    - .7.0-fpm
-
-# PHP 7.1
-###########################
-publish:7.1-cli:
-    extends:
-    - .publish
-    - .7.1-cli
-
-publish:7.1-devel:
-    extends:
-    - .publish
-    - .7.1-devel
-
-publish:7.1-fpm:
-    extends:
-    - .publish
-    - .7.1-fpm
+    - docker pull "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}"
+    - docker tag "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}" "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_TAG}"
+    - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_TAG}"
 
 # PHP 7.2
 ###########################
