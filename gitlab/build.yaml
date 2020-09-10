@@ -1,5 +1,5 @@
 #######################
-# Build steps
+# Build stage
 #######################
 .build:
     stage: build

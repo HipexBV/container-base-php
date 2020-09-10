@@ -1,5 +1,5 @@
 #######################
-# Quality steps
+# Quality stage
 #######################
 quality:dockerfile:
     extends: .default
