@@ -1,127 +1,103 @@
 #######################
 # Publish stage
 #######################
+.publish:
+    image: docker:19.03.12
+    service:
+    - name: docker:19.03.12-dind
+      command: ["--experimental"]
+    only:
+    - tags
+    extends: .default
+    stage: publish
+    script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
+    - docker pull "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
+    - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
 
-# image: git-registry.emico.nl/hipex-services/docker-image-build
-#
-# stages:
-# - quality
-# - build
-# - test
-# - release
-#
-# # Default include
-# .default:
-#     only:
-#     - tags
-#     - merge_requests
-#
-# include:
-# - '/gitlab/variables.yaml'
-# - '/gitlab/quality.yaml'
-# - '/gitlab/build.yaml'
-# - '/gitlab/release.yaml'
-# - '/gitlab/publish.yaml'
-#
-# release:
-#     stage: release
-#     image: registry.hipex.cloud/hipex-services/release-cl
-#     only:
-#     - master
-#     - alpha
-#     - beta
-#     script:
-#     - semantic-release
-#
-# build:7.0-cli:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.0-cli"
-#         VERSION: "7.0-cli"
-#
-# build:7.0-devel:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.0-cli"
-#         VERSION: "7.0-devel"
-#
-# build:7.0-fpm:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.0-fpm"
-#         VERSION: "7.0-fpm"
-#
-# build:7.1-cli:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.1-cli"
-#         VERSION: "7.1-cli"
-#
-# build:7.1-devel:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.1-cli"
-#         VERSION: "7.1-devel"
-#
-# build:7.1-fpm:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.1-fpm"
-#         VERSION: "7.1-fpm"
-#
-# build:7.2-cli:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.2-cli"
-#         VERSION: "7.2-cli"
-#
-# build:7.2-devel:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.2-cli"
-#         VERSION: "7.2-devel"
-#
-# build:7.2-fpm:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.2-fpm"
-#         VERSION: "7.2-fpm"
-#
-# build:7.3-cli:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.3-cli"
-#         VERSION: "7.3-cli"
-#
-# build:7.3-devel:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.3-cli"
-#         VERSION: "7.3-devel"
-#
-# build:7.3-fpm:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.3-fpm"
-#         VERSION: "7.3-fpm"
-#
-# build:7.4-cli:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.4-cli"
-#         VERSION: "7.4-cli"
-#
-# build:7.4-devel:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.4-cli"
-#         VERSION: "7.4-devel"
-#
-# build:7.4-fpm:
-#     extends: .build
-#     variables:
-#         PHP_VERSION: "7.4-fpm"
-#         VERSION: "7.4-fpm"
-#
-# release:
-#
+# PHP 7.0
+###########################
+publish:7.0-cli:
+    extends:
+    - .publish
+    - .7.0-cli
+
+publish:7.0-devel:
+    extends:
+    - .publish
+    - .7.0-devel
+
+publish:7.0-fpm:
+    extends:
+    - .publish
+    - .7.0-fpm
+
+# PHP 7.1
+###########################
+publish:7.1-cli:
+    extends:
+    - .publish
+    - .7.1-cli
+
+publish:7.1-devel:
+    extends:
+    - .publish
+    - .7.1-devel
+
+publish:7.1-fpm:
+    extends:
+    - .publish
+    - .7.1-fpm
+
+# PHP 7.2
+###########################
+publish:7.2-cli:
+    extends:
+    - .publish
+    - .7.2-cli
+
+publish:7.2-devel:
+    extends:
+    - .publish
+    - .7.2-devel
+
+publish:7.2-fpm:
+    extends:
+    - .publish
+    - .7.2-fpm
+
+# PHP 7.3
+###########################
+publish:7.3-cli:
+    extends:
+    - .publish
+    - .7.3-cli
+
+publish:7.3-devel:
+    extends:
+    - .publish
+    - .7.3-devel
+
+publish:7.3-fpm:
+    extends:
+    - .publish
+    - .7.3-fpm
+
+# PHP 7.4
+###########################
+publish:7.4-cli:
+    extends:
+    - .publish
+    - .7.4-cli
+
+publish:7.4-devel:
+    extends:
+    - .publish
+    - .7.4-devel
+
+publish:7.4-fpm:
+    extends:
+    - .publish
+    - .fpm
+

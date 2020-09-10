@@ -2,94 +2,104 @@
 # Build stage
 #######################
 .build:
+    image: docker:19.03.12
+    service:
+    - name: docker:19.03.12-dind
+      command: ["--experimental"]
+    extends: .default
+    variables:
+        DOCKER_DRIVER: overlay2
+        DOCKER_BUILDKIT: 1
+        DOCKER_CLI_EXPERIMENTAL: enabled
     stage: build
     script:
-    - build.sh --build-arg PHP_VERSION=$PHP_VERSION --build-arg IMAGE_VERSION=$VERSION .
-    only:
-    - tags
-    - master
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
+    - docker pull "${CI_REGISTRY_IMAGE}:cache" || true
+    - docker build --cache-from "${CI_REGISTRY_IMAGE}:cache" --tag "${CI_REGISTRY_IMAGE}:cache" --tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
+    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
+    - docker push "${CI_REGISTRY_IMAGE}:cache"
 
 # PHP 7.0
 ###########################
-.7.0-cli:
-    variables:
-        PHP_VERSION: "7.0-cli"
-        VERSION: "7.0-cli"
+build:7.0-cli:
+    extends:
+    - .build
+    - .7.0-cli
 
-.7.0-devel:
-    variables:
-        PHP_VERSION: "7.0-cli"
-        VERSION: "7.0-devel"
+build:7.0-devel:
+    extends:
+    - .build
+    - .7.0-devel
 
-.7.0-fpm:
-    variables:
-        PHP_VERSION: "7.0-fpm"
-        VERSION: "7.0-fpm"
+build:7.0-fpm:
+    extends:
+    - .build
+    - .7.0-fpm
 
 # PHP 7.1
 ###########################
-.7.1-cli:
-    variables:
-        PHP_VERSION: "7.1-cli"
-        VERSION: "7.1-cli"
+build:7.1-cli:
+    extends:
+    - .build
+    - .7.1-cli
 
-.7.1-devel:
-    variables:
-        PHP_VERSION: "7.1-cli"
-        VERSION: "7.1-devel"
+build:7.1-devel:
+    extends:
+    - .build
+    - .7.1-devel
 
-.7.1-fpm:
-    variables:
-        PHP_VERSION: "7.1-fpm"
-        VERSION: "7.1-fpm"
+build:7.1-fpm:
+    extends:
+    - .build
+    - .7.1-fpm
 
 # PHP 7.2
 ###########################
-.7.2-cli:
-    variables:
-        PHP_VERSION: "7.2-cli"
-        VERSION: "7.2-cli"
+build:7.2-cli:
+    extends:
+    - .build
+    - .7.2-cli
 
-.7.2-devel:
-    variables:
-        PHP_VERSION: "7.2-cli"
-        VERSION: "7.2-devel"
+build:7.2-devel:
+    extends:
+    - .build
+    - .7.2-devel
 
-.7.2-fpm:
-    variables:
-        PHP_VERSION: "7.2-fpm"
-        VERSION: "7.2-fpm"
+build:7.2-fpm:
+    extends:
+    - .build
+    - .7.2-fpm
 
 # PHP 7.3
 ###########################
-.7.3-cli:
-    variables:
-        PHP_VERSION: "7.3-cli"
-        VERSION: "7.3-cli"
+build:7.3-cli:
+    extends:
+    - .build
+    - .7.3-cli
 
-.7.3-devel:
-    variables:
-        PHP_VERSION: "7.3-cli"
-        VERSION: "7.3-devel"
+build:7.3-devel:
+    extends:
+    - .build
+    - .7.3-devel
 
-.7.3-fpm:
-    variables:
-        PHP_VERSION: "7.3-fpm"
-        VERSION: "7.3-fpm"
+build:7.3-fpm:
+    extends:
+    - .build
+    - .7.3-fpm
 
 # PHP 7.4
 ###########################
-.7.4-cli:
-    variables:
-        PHP_VERSION: "7.4-cli"
-        VERSION: "7.4-cli"
+build:7.4-cli:
+    extends:
+    - .build
+    - .7.4-cli
 
-.7.4-devel:
-    variables:
-        PHP_VERSION: "7.4-cli"
-        VERSION: "7.4-devel"
+build:7.4-devel:
+    extends:
+    - .build
+    - .7.4-devel
 
-.7.4-fpm:
-    variables:
-        PHP_VERSION: "7.4-fpm"
-        VERSION: "7.4-fpm"
+build:7.4-fpm:
+    extends:
+    - .build
+    - .fpm

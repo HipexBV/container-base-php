@@ -1,5 +1,3 @@
-image: git-registry.emico.nl/hipex-services/docker-image-build
-
 stages:
 - quality
 - build
