@@ -3,7 +3,7 @@
 #######################
 .publish:
     image: docker:19.03.12
-    service:
+    services:
     - name: docker:19.03.12-dind
       command: ["--experimental"]
     only:
