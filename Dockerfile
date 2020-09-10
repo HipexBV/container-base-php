@@ -1,6 +1,6 @@
 ARG PHP_VERSION=7.4-cli
 
-FROM php:${PHP_VERSION}-buster
+FROM php:${PHP_VERSION}
 LABEL maintainer="Hipex.io <info@hipex.io>"
 
 ARG IMAGE_VERSION

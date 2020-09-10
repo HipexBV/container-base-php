@@ -28,40 +28,6 @@
     - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}"
     - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:cache"
 
-# PHP 7.0
-###########################
-build:7.0-cli:
-    extends:
-    - .build
-    - .7.0-cli
-
-build:7.0-devel:
-    extends:
-    - .build
-    - .7.0-devel
-
-build:7.0-fpm:
-    extends:
-    - .build
-    - .7.0-fpm
-
-# PHP 7.1
-###########################
-build:7.1-cli:
-    extends:
-    - .build
-    - .7.1-cli
-
-build:7.1-devel:
-    extends:
-    - .build
-    - .7.1-devel
-
-build:7.1-fpm:
-    extends:
-    - .build
-    - .7.1-fpm
-
 # PHP 7.2
 ###########################
 build:7.2-cli:

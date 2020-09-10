@@ -18,40 +18,6 @@
     - docker tag "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}" "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_TAG}"
     - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_TAG}"
 
-# PHP 7.0
-###########################
-publish:7.0-cli:
-    extends:
-    - .publish
-    - .7.0-cli
-
-publish:7.0-devel:
-    extends:
-    - .publish
-    - .7.0-devel
-
-publish:7.0-fpm:
-    extends:
-    - .publish
-    - .7.0-fpm
-
-# PHP 7.1
-###########################
-publish:7.1-cli:
-    extends:
-    - .publish
-    - .7.1-cli
-
-publish:7.1-devel:
-    extends:
-    - .publish
-    - .7.1-devel
-
-publish:7.1-fpm:
-    extends:
-    - .publish
-    - .7.1-fpm
-
 # PHP 7.2
 ###########################
 publish:7.2-cli:
