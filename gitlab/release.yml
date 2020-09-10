@@ -1,0 +1,122 @@
+image: git-registry.emico.nl/hipex-services/docker-image-build
+
+stages:
+- quality
+- build
+- test
+- release
+
+# Default include
+.default:
+    only:
+    - tags
+    - merge_requests
+
+include:
+- '/gitlab/variables.yaml'
+- '/gitlab/quality.yaml'
+- '/gitlab/build.yaml'
+- '/gitlab/release.yaml'
+- '/gitlab/publish.yaml'
+
+release:
+    stage: release
+    image: registry.hipex.cloud/hipex-services/release-cl
+    only:
+    - master
+    - alpha
+    - beta
+    script:
+    - semantic-release
+
+build:7.0-cli:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.0-cli"
+        VERSION: "7.0-cli"
+
+build:7.0-devel:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.0-cli"
+        VERSION: "7.0-devel"
+
+build:7.0-fpm:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.0-fpm"
+        VERSION: "7.0-fpm"
+
+build:7.1-cli:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.1-cli"
+        VERSION: "7.1-cli"
+
+build:7.1-devel:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.1-cli"
+        VERSION: "7.1-devel"
+
+build:7.1-fpm:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.1-fpm"
+        VERSION: "7.1-fpm"
+
+build:7.2-cli:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.2-cli"
+        VERSION: "7.2-cli"
+
+build:7.2-devel:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.2-cli"
+        VERSION: "7.2-devel"
+
+build:7.2-fpm:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.2-fpm"
+        VERSION: "7.2-fpm"
+
+build:7.3-cli:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.3-cli"
+        VERSION: "7.3-cli"
+
+build:7.3-devel:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.3-cli"
+        VERSION: "7.3-devel"
+
+build:7.3-fpm:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.3-fpm"
+        VERSION: "7.3-fpm"
+
+build:7.4-cli:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.4-cli"
+        VERSION: "7.4-cli"
+
+build:7.4-devel:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.4-cli"
+        VERSION: "7.4-devel"
+
+build:7.4-fpm:
+    extends: .build
+    variables:
+        PHP_VERSION: "7.4-fpm"
+        VERSION: "7.4-fpm"
+
+release:

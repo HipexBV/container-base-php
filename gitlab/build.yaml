@@ -1,0 +1,95 @@
+#######################
+# Build steps
+#######################
+.build:
+    stage: build
+    script:
+    - build.sh --build-arg PHP_VERSION=$PHP_VERSION --build-arg IMAGE_VERSION=$VERSION .
+    only:
+    - tags
+    - master
+
+# PHP 7.0
+###########################
+.7.0-cli:
+    variables:
+        PHP_VERSION: "7.0-cli"
+        VERSION: "7.0-cli"
+
+.7.0-devel:
+    variables:
+        PHP_VERSION: "7.0-cli"
+        VERSION: "7.0-devel"
+
+.7.0-fpm:
+    variables:
+        PHP_VERSION: "7.0-fpm"
+        VERSION: "7.0-fpm"
+
+# PHP 7.1
+###########################
+.7.1-cli:
+    variables:
+        PHP_VERSION: "7.1-cli"
+        VERSION: "7.1-cli"
+
+.7.1-devel:
+    variables:
+        PHP_VERSION: "7.1-cli"
+        VERSION: "7.1-devel"
+
+.7.1-fpm:
+    variables:
+        PHP_VERSION: "7.1-fpm"
+        VERSION: "7.1-fpm"
+
+# PHP 7.2
+###########################
+.7.2-cli:
+    variables:
+        PHP_VERSION: "7.2-cli"
+        VERSION: "7.2-cli"
+
+.7.2-devel:
+    variables:
+        PHP_VERSION: "7.2-cli"
+        VERSION: "7.2-devel"
+
+.7.2-fpm:
+    variables:
+        PHP_VERSION: "7.2-fpm"
+        VERSION: "7.2-fpm"
+
+# PHP 7.3
+###########################
+.7.3-cli:
+    variables:
+        PHP_VERSION: "7.3-cli"
+        VERSION: "7.3-cli"
+
+.7.3-devel:
+    variables:
+        PHP_VERSION: "7.3-cli"
+        VERSION: "7.3-devel"
+
+.7.3-fpm:
+    variables:
+        PHP_VERSION: "7.3-fpm"
+        VERSION: "7.3-fpm"
+
+# PHP 7.4
+###########################
+.7.4-cli:
+    variables:
+        PHP_VERSION: "7.4-cli"
+        VERSION: "7.4-cli"
+
+.7.4-devel:
+    variables:
+        PHP_VERSION: "7.4-cli"
+        VERSION: "7.4-devel"
+
+.7.4-fpm:
+    variables:
+        PHP_VERSION: "7.4-fpm"
+        VERSION: "7.4-fpm"
