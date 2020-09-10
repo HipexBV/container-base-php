@@ -102,4 +102,4 @@ build:7.4-devel:
 build:7.4-fpm:
     extends:
     - .build
-    - .fpm
+    - .7.4-fpm
