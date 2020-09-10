@@ -31,9 +31,51 @@ RUN apt-get update && \
 # Install php extensions
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
-# Run build scripts
-COPY build /build
-RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H || exit 1; done
+# Install PHP extensions
+RUN install-php-extensions \
+    bcmath \
+    bz2 \
+    exif \
+    gd \
+    geoip \
+    gmp \
+    igbinary \
+    imagick \
+    intl \
+    mysqli \
+    opcache \
+    pdo_mysql \
+    redis \
+    soap \
+    sockets \
+    sysvmsg \
+    sysvsem \
+    sysvshm \
+    tidy \
+    xmlrpc \
+    xsl \
+    yaml \
+    zip \
+    zlib \
+    json \
+    pcntl \
+    snappy
+
+# Prepare dev image
+RUN if [ "$IMAGE_VERSION" =~ -devel$ ]; then echo "Preparing development image" \
+    && install-php-extensions xdebug \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+
+# Prepare user
+RUN mkdir /app \
+    && addgroup -S app -g 5000 \
+    && adduser \
+        -S \
+        -h /app \
+        -s /bin/shell \
+        -u 5000 \
+        app app \
+    && chown app:app /app
 
 # Copy config files
 COPY files/all/. /
