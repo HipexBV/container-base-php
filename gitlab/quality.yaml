@@ -6,4 +6,4 @@ quality:dockerfile:
     stage: quality
     image: hadolint/hadolint:latest-debian
     script:
-    - find . -type f -name "Dockerfile" | xargs --max-lines=1 hadolint --config=hadolint.yaml
+    - hadolint --config=hadolint.yaml Dockerfile
