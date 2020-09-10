@@ -57,8 +57,7 @@ RUN install-php-extensions \
     zip \
     zlib \
     json \
-    pcntl \
-    snappy
+    pcntl
 
 # Prepare dev image
 RUN if echo "$IMAGE_VERSION" | grep -q '-devel$'; then echo "Preparing development image" \
