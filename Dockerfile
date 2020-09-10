@@ -67,13 +67,14 @@ RUN if echo "$IMAGE_VERSION" | grep -q '-devel$'; then echo "Preparing developme
 
 # Prepare user
 RUN mkdir /app \
-    && addgroup -S app -g 5000 \
+    && addgroup --system app --gid 5000 \
     && adduser \
-        -S \
-        -h /app \
-        -s /bin/shell \
-        -u 5000 \
-        app app \
+        --system \
+        --home /app \
+        --shell /bin/shell \
+        --uid 5000 \
+        --gid 5000 \
+        app \
     && chown app:app /app
 
 # Copy config files
