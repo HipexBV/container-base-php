@@ -37,7 +37,6 @@ RUN install-php-extensions \
     bz2 \
     exif \
     gd \
-    geoip \
     gmp \
     igbinary \
     imagick \
