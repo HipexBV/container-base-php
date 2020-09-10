@@ -6,7 +6,9 @@
     services:
     - name: docker:19.03.12-dind
       command: ["--experimental"]
-    extends: .default
+    extends:
+    - .default
+    - .docker
     variables:
         DOCKER_DRIVER: overlay2
         DOCKER_BUILDKIT: 1

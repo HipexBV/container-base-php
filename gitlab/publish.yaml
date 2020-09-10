@@ -6,9 +6,11 @@
     services:
     - name: docker:19.03.12-dind
       command: ["--experimental"]
+    extends:
+    - .default
+    - .docker
     only:
     - tags
-    extends: .default
     stage: publish
     script:
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
