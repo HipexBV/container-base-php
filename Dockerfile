@@ -60,7 +60,7 @@ RUN install-php-extensions \
     pcntl
 
 # Prepare dev image
-RUN if echo "$IMAGE_VERSION" | grep -q '-devel$'; then echo "Preparing development image" \
+RUN if echo "$IMAGE_VERSION" | grep '\-devel'; then echo "Preparing development image" \
     && install-php-extensions xdebug \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     ; fi
