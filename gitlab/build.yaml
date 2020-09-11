@@ -35,15 +35,20 @@ build:7.2-cli:
     - .build
     - .7.2-cli
 
-build:7.2-devel:
+build:7.2-cli-devel:
     extends:
     - .build
-    - .7.2-devel
+    - .7.2-cli-devel
 
 build:7.2-fpm:
     extends:
     - .build
     - .7.2-fpm
+
+build:7.2-fpm-devel:
+    extends:
+    - .build
+    - .7.2-fpm-devel
 
 # PHP 7.3
 ###########################
@@ -52,15 +57,20 @@ build:7.3-cli:
     - .build
     - .7.3-cli
 
-build:7.3-devel:
+build:7.3-cli-devel:
     extends:
     - .build
-    - .7.3-devel
+    - .7.3-cli-devel
 
 build:7.3-fpm:
     extends:
     - .build
     - .7.3-fpm
+
+build:7.3-fpm-devel:
+    extends:
+    - .build
+    - .7.3-fpm-devel
 
 # PHP 7.4
 ###########################
@@ -69,12 +79,17 @@ build:7.4-cli:
     - .build
     - .7.4-cli
 
-build:7.4-devel:
+build:7.4-cli-devel:
     extends:
     - .build
-    - .7.4-devel
+    - .7.4-cli-devel
 
 build:7.4-fpm:
     extends:
     - .build
     - .7.4-fpm
+
+build:7.4-fpm-devel:
+    extends:
+    - .build
+    - .7.4-fpm-devel
