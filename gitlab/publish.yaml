@@ -25,15 +25,20 @@ publish:7.2-cli:
     - .publish
     - .7.2-cli
 
-publish:7.2-devel:
+publish:7.2-cli-devel:
     extends:
     - .publish
-    - .7.2-devel
+    - .7.2-cli-devel
 
 publish:7.2-fpm:
     extends:
     - .publish
     - .7.2-fpm
+
+publish:7.2-fpm-devel:
+    extends:
+    - .publish
+    - .7.2-fpm-devel
 
 # PHP 7.3
 ###########################
@@ -42,15 +47,20 @@ publish:7.3-cli:
     - .publish
     - .7.3-cli
 
-publish:7.3-devel:
+publish:7.3-cli-devel:
     extends:
     - .publish
-    - .7.3-devel
+    - .7.3-cli-devel
 
 publish:7.3-fpm:
     extends:
     - .publish
     - .7.3-fpm
+
+publish:7.3-fpm-devel:
+    extends:
+    - .publish
+    - .7.3-fpm-devel
 
 # PHP 7.4
 ###########################
@@ -59,13 +69,17 @@ publish:7.4-cli:
     - .publish
     - .7.4-cli
 
-publish:7.4-devel:
+publish:7.4-cli-devel:
     extends:
     - .publish
-    - .7.4-devel
+    - .7.4-cli-devel
 
 publish:7.4-fpm:
     extends:
     - .publish
     - .7.4-fpm
 
+publish:7.4-fpm-devel:
+    extends:
+    - .publish
+    - .7.4-fpm-devel
