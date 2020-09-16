@@ -1,3 +1,16 @@
+# [1.2.0](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.1.0...v1.2.0) (2020-09-16)
+
+
+### Bug Fixes
+
+* Increased default function level nesting to 4096 in devel version ([84091b0](https://git.emico.nl/hipex-services/docker-image-php/commit/84091b0af0212955623fb1ec6181b30c5566eb19))
+
+
+### Features
+
+* added hirak/prestissimo composer parallel installer plugin to dev image ([8e44137](https://git.emico.nl/hipex-services/docker-image-php/commit/8e44137814213c951ff314b59f0596fe5a8f1486))
+* Added zip binary for devel build ([d358e22](https://git.emico.nl/hipex-services/docker-image-php/commit/d358e226f70d476a186a4c99f195dfc383fdc389))
+
 # [1.1.0](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.0.1...v1.1.0) (2020-09-11)
 
 
