@@ -63,6 +63,7 @@ RUN install-php-extensions \
 RUN if echo "$IMAGE_VERSION" | grep '\-devel'; then echo "Preparing development image" \
     && install-php-extensions xdebug \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer global require hirak/prestissimo \
     ; fi
 
 # Prepare user
