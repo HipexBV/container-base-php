@@ -26,6 +26,7 @@ RUN apt-get update && \
         docker \
         gnupg \
         zip \
+        unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Install php extensions
