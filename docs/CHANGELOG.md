@@ -1,3 +1,10 @@
+# [1.3.0](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.2.0...v1.3.0) (2020-11-09)
+
+
+### Features
+
+* startup find hipex template script now no longer checks external file xystsms ([c656e48](https://git.emico.nl/hipex-services/docker-image-php/commit/c656e4840f47207f773001fbbeb7b83dd398a403))
+
 # [1.2.0](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.1.0...v1.2.0) (2020-09-16)
 
 
