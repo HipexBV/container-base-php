@@ -1,3 +1,10 @@
+# [1.4.0](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.3.0...v1.4.0) (2020-11-09)
+
+
+### Features
+
+* Added composer 2 support with default to composer 1 ([614304b](https://git.emico.nl/hipex-services/docker-image-php/commit/614304bf02c59d6b4c849f51b5af3eb12ea00bbe))
+
 # [1.3.0](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.2.0...v1.3.0) (2020-11-09)
 
 
