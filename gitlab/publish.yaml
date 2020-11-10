@@ -1,0 +1,87 @@
+#######################
+# Publish stage
+#######################
+.publish:
+    image: docker:19.03.12
+    services:
+    - name: docker:19.03.12-dind
+      command: ["--experimental"]
+    extends:
+    - .default
+    - .docker
+    only:
+    - tags
+    stage: publish
+    script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
+    - docker pull "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}"
+    - docker tag "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}" "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_TAG}"
+    - docker tag "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_SHA}" "${CI_REGISTRY_IMAGE}/${VERSION}:latest"
+    - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:${CI_COMMIT_TAG}"
+    - docker push "${CI_REGISTRY_IMAGE}/${VERSION}:latest"
+
+# PHP 7.2
+###########################
+publish:7.2-cli:
+    extends:
+    - .publish
+    - .7.2-cli
+
+publish:7.2-cli-devel:
+    extends:
+    - .publish
+    - .7.2-cli-devel
+
+publish:7.2-fpm:
+    extends:
+    - .publish
+    - .7.2-fpm
+
+publish:7.2-fpm-devel:
+    extends:
+    - .publish
+    - .7.2-fpm-devel
+
+# PHP 7.3
+###########################
+publish:7.3-cli:
+    extends:
+    - .publish
+    - .7.3-cli
+
+publish:7.3-cli-devel:
+    extends:
+    - .publish
+    - .7.3-cli-devel
+
+publish:7.3-fpm:
+    extends:
+    - .publish
+    - .7.3-fpm
+
+publish:7.3-fpm-devel:
+    extends:
+    - .publish
+    - .7.3-fpm-devel
+
+# PHP 7.4
+###########################
+publish:7.4-cli:
+    extends:
+    - .publish
+    - .7.4-cli
+
+publish:7.4-cli-devel:
+    extends:
+    - .publish
+    - .7.4-cli-devel
+
+publish:7.4-fpm:
+    extends:
+    - .publish
+    - .7.4-fpm
+
+publish:7.4-fpm-devel:
+    extends:
+    - .publish
+    - .7.4-fpm-devel

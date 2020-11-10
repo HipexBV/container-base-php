@@ -1,6 +1,6 @@
 ARG PHP_VERSION=7.4-cli
 
-FROM php:${PHP_VERSION}-alpine
+FROM php:${PHP_VERSION}
 LABEL maintainer="Hipex.io <info@hipex.io>"
 
 ARG IMAGE_VERSION
@@ -8,30 +8,77 @@ ARG PHP_VERSION
 
 USER root
 
-RUN apk --update --no-cache add --virtual .ext-deps \
-        bzip2-dev \
-        libjpeg-turbo-dev \
-        libpng-dev \
-        freetype-dev \
-        geoip-dev \
-        wget \
-        gmp-dev \
-        imagemagick-dev \
-        icu-dev \
-        tidyhtml-dev \
-        libxslt-dev \
-        yaml-dev \
-        libzip-dev \
-        libsodium-dev \
-        curl-dev \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        openssh-client \
+        rsync \
+        git \
+        patch \
         bash \
-        gettext \
-        rsync
+        ca-certificates \
+        wget \
+        curl \
+        openssl \
+        g++ \
+        autoconf \
+        make \
+        libtool \
+        docker \
+        gnupg \
+        zip \
+        unzip \
+        gettext-base \
+    && rm -rf /var/lib/apt/lists/*
 
-# Run build scripts
-COPY build /build
-RUN for FILE in /build/*.sh; do echo "Running ${FILE}"; bash "${FILE}" -H || exit 1; done \
-    && rm -Rf /build
+# Install php extensions
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+
+# Install PHP extensions
+RUN install-php-extensions \
+    bcmath \
+    bz2 \
+    exif \
+    gd \
+    gmp \
+    igbinary \
+    imagick \
+    intl \
+    mysqli \
+    opcache \
+    pdo_mysql \
+    redis \
+    soap \
+    sockets \
+    sysvmsg \
+    sysvsem \
+    sysvshm \
+    tidy \
+    xmlrpc \
+    xsl \
+    yaml \
+    zip \
+    zlib \
+    json \
+    pcntl
+
+# Prepare dev image
+RUN if echo "$IMAGE_VERSION" | grep '\-devel'; then echo "Preparing development image" \
+    && install-php-extensions xdebug \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.17 \
+    && composer global require hirak/prestissimo --ignore-platform-reqs \
+    ; fi
+
+# Prepare user
+RUN mkdir /app \
+    && addgroup --system app --gid 5000 \
+    && adduser \
+        --system \
+        --home /app \
+        --shell /bin/shell \
+        --uid 5000 \
+        --gid 5000 \
+        app \
+    && chown app:app /app
 
 # Copy config files
 COPY files/all/. /
