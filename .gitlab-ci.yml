@@ -1,105 +1,26 @@
-services:
-- docker:19.03.8-dind
-image: git-registry.emico.nl/hipex-services/docker-image-build
-
 stages:
+- quality
 - build
 - test
+- release
+- publish
 
-.build:
-    stage: build
-    script:
-    - build.sh --build-arg PHP_VERSION=$PHP_VERSION --build-arg IMAGE_VERSION=$VERSION .
+# Default include
+.default:
     only:
     - tags
-    - master
+    - merge_requests
 
-build:7.0-cli:
-    extends: .build
+.docker:
     variables:
-        PHP_VERSION: "7.0-cli"
-        VERSION: "7.0-cli"
+        CI_REGISTRY: 'git-registry.emico.nl'
+        CI_REGISTRY_IMAGE: "git-registry.emico.nl/$CI_PROJECT_PATH"
+    before_script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" $CI_REGISTRY
 
-build:7.0-devel:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.0-cli"
-        VERSION: "7.0-devel"
-
-build:7.0-fpm:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.0-fpm"
-        VERSION: "7.0-fpm"
-
-build:7.1-cli:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.1-cli"
-        VERSION: "7.1-cli"
-
-build:7.1-devel:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.1-cli"
-        VERSION: "7.1-devel"
-
-build:7.1-fpm:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.1-fpm"
-        VERSION: "7.1-fpm"
-
-build:7.2-cli:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.2-cli"
-        VERSION: "7.2-cli"
-
-build:7.2-devel:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.2-cli"
-        VERSION: "7.2-devel"
-
-build:7.2-fpm:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.2-fpm"
-        VERSION: "7.2-fpm"
-
-build:7.3-cli:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.3-cli"
-        VERSION: "7.3-cli"
-
-build:7.3-devel:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.3-cli"
-        VERSION: "7.3-devel"
-
-build:7.3-fpm:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.3-fpm"
-        VERSION: "7.3-fpm"
-
-build:7.4-cli:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.4-cli"
-        VERSION: "7.4-cli"
-
-build:7.4-devel:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.4-cli"
-        VERSION: "7.4-devel"
-
-build:7.4-fpm:
-    extends: .build
-    variables:
-        PHP_VERSION: "7.4-fpm"
-        VERSION: "7.4-fpm"
+include:
+- '/gitlab/variables.yaml'
+- '/gitlab/quality.yaml'
+- '/gitlab/build.yaml'
+- '/gitlab/release.yaml'
+- '/gitlab/publish.yaml'

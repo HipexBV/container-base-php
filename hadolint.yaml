@@ -1,0 +1,6 @@
+ignored:
+- DL3018 # tag apk add versions
+- DL4006 # set -o pipefail
+- SC2086 # Double quote to prevent globbing and word splitting.
+- DL3022 # Allowed to copy from external image
+- DL3008 # Do not require specific pinned package versions

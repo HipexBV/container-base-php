@@ -1,0 +1,12 @@
+#######################
+# Release stage
+#######################
+release:
+    stage: release
+    image: registry.hipex.cloud/hipex-services/release-cl
+    only:
+    - master
+    - alpha
+    - beta
+    script:
+    - semantic-release

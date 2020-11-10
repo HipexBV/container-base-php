@@ -1,0 +1,9 @@
+#######################
+# Quality stage
+#######################
+quality:dockerfile:
+    extends: .default
+    stage: quality
+    image: hadolint/hadolint:latest-debian
+    script:
+    - hadolint --config=hadolint.yaml Dockerfile
