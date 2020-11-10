@@ -27,6 +27,7 @@ RUN apt-get update && \
         gnupg \
         zip \
         unzip \
+        gettext-base \
     && rm -rf /var/lib/apt/lists/*
 
 # Install php extensions
