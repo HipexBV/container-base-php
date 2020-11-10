@@ -1,3 +1,10 @@
+## [1.4.1](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.4.0...v1.4.1) (2020-11-10)
+
+
+### Bug Fixes
+
+* Now publishes latest version tag ([0cfeef6](https://git.emico.nl/hipex-services/docker-image-php/commit/0cfeef627e28963a7afe3815dddce4021f797686))
+
 # [1.4.0](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.3.0...v1.4.0) (2020-11-09)
 
 
