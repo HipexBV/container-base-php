@@ -1,3 +1,17 @@
+## [1.4.3-beta.1](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.4.2...v1.4.3-beta.1) (2020-11-10)
+
+
+### Bug Fixes
+
+* gettext plugin instlled to be able to use envsubset command ([c55561d](https://git.emico.nl/hipex-services/docker-image-php/commit/c55561d61ce4bc4425059c7ba8751ed1351b4622))
+
+## [1.4.3-alpha.1](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.4.2...v1.4.3-alpha.1) (2020-11-10)
+
+
+### Bug Fixes
+
+* gettext plugin instlled to be able to use envsubset command ([c55561d](https://git.emico.nl/hipex-services/docker-image-php/commit/c55561d61ce4bc4425059c7ba8751ed1351b4622))
+
 ## [1.4.2](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.4.1...v1.4.2) (2020-11-10)
 
 
