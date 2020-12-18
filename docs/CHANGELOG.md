@@ -1,3 +1,10 @@
+## [1.4.3-alpha.2](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.4.3-alpha.1...v1.4.3-alpha.2) (2020-12-18)
+
+
+### Bug Fixes
+
+* Now allowes for max more children to handle requests ([08ca8e8](https://git.emico.nl/hipex-services/docker-image-php/commit/08ca8e8859c73088a1c2e8533eff49b924237ef5))
+
 ## [1.4.3-alpha.1](https://git.emico.nl/hipex-services/docker-image-php/compare/v1.4.2...v1.4.3-alpha.1) (2020-11-10)
 
 
