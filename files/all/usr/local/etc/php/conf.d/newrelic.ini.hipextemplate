@@ -1,0 +1,13 @@
+[php]
+extension = "newrelic.so"
+
+[newrelic]
+newrelic.enabled = ${NEWRELIC_ENABLED}
+newrelic.appname = "${NEWRELIC_APP_NAME}"
+newrelic.license = "${NEWRELIC_LICENSE_KEY}"
+newrelic.process_host.display_name = "${HOSTNAME}"
+
+newrelic.daemon.port = "31339"
+newrelic.daemon.address = "newrelic-daemon"
+
+newrelic.guzzle.enabled = true

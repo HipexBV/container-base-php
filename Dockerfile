@@ -1,10 +1,30 @@
 ARG PHP_VERSION=7.4-cli
 
+################
+# New relic build steps
+################
+FROM php:${PHP_VERSION} AS newrelic-build
+
+ENV NEWRELIC_VERSION=9.15.0.293
+
+WORKDIR /build
+RUN export PHP_API_VERSION=$(php -i | grep 'PHP API' | sed -e 's/PHP API => //') \
+    && curl -fL -o "/build/php_agent.tar.gz" "https://download.newrelic.com/php_agent/release/newrelic-php5-${NEWRELIC_VERSION}-linux.tar.gz" \
+    && tar -xvf php_agent.tar.gz \
+    && cp "/build/newrelic-php5-${NEWRELIC_VERSION}-linux/agent/x64/newrelic-${PHP_API_VERSION}.so" /build/newrelic.so
+
+################
+# New relic build steps
+################
 FROM php:${PHP_VERSION}
 LABEL maintainer="Hipex.io <info@hipex.io>"
 
 ARG IMAGE_VERSION
 ARG PHP_VERSION
+
+ENV NEWRELIC_ENABLED="false"
+ENV NEWRELIC_LICENSE_KEY=""
+ENV NEWRELIC_APP_NAME="Hipex container app"
 
 USER root
 
@@ -32,6 +52,10 @@ RUN apt-get update && \
 
 # Install php extensions
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+COPY --from=newrelic-build /build/newrelic.so /usr/local/lib/php/extensions/newrelic.so
+
+RUN export PHP_API_VERSION=$(php -i | grep 'PHP API' | sed -e 's/PHP API => //') \
+    && mv /usr/local/lib/php/extensions/newrelic.so "/usr/local/lib/php/extensions/no-debug-non-zts-${PHP_API_VERSION}/newrelic.so"
 
 # Install PHP extensions
 RUN install-php-extensions \
