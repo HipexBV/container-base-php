@@ -85,3 +85,25 @@ publish:7.4-fpm-devel:
     extends:
     - .publish
     - .7.4-fpm-devel
+
+# PHP 8.0
+###########################
+publish:8.0-cli:
+    extends:
+    - .publish
+    - .8.0-cli
+
+publish:8.0-cli-devel:
+    extends:
+    - .publish
+    - .8.0-cli-devel
+
+publish:8.0-fpm:
+    extends:
+    - .publish
+    - .8.0-fpm
+
+publish:8.0-fpm-devel:
+    extends:
+    - .publish
+    - .8.0-fpm-devel

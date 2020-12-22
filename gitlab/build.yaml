@@ -93,3 +93,25 @@ build:7.4-fpm-devel:
     extends:
     - .build
     - .7.4-fpm-devel
+
+# PHP 8.0
+###########################
+build:8.0-cli:
+    extends:
+    - .build
+    - .8.0-cli
+
+build:8.0-cli-devel:
+    extends:
+    - .build
+    - .8.0-cli-devel
+
+build:8.0-fpm:
+    extends:
+    - .build
+    - .8.0-fpm
+
+build:8.0-fpm-devel:
+    extends:
+    - .build
+    - .8.0-fpm-devel
