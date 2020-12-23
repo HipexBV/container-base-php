@@ -64,3 +64,26 @@
     variables:
         PHP_VERSION: "7.4-fpm-buster"
         VERSION: "7.4-fpm-devel"
+
+###########################
+# PHP 8.0
+###########################
+.8.0-cli:
+    variables:
+        PHP_VERSION: "8.0-cli-buster"
+        VERSION: "8.0-cli"
+
+.8.0-cli-devel:
+    variables:
+        PHP_VERSION: "8.0-cli-buster"
+        VERSION: "8.0-cli-devel"
+
+.8.0-fpm:
+    variables:
+        PHP_VERSION: "8.0-fpm-buster"
+        VERSION: "8.0-fpm"
+
+.8.0-fpm-devel:
+    variables:
+        PHP_VERSION: "8.0-fpm-buster"
+        VERSION: "8.0-fpm-devel"
