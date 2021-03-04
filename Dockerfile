@@ -2,11 +2,12 @@ ARG PHP_VERSION=7.4-cli
 
 FROM php:${PHP_VERSION}
 LABEL maintainer="Hipex.io <info@hipex.io>"
+LABEL org.opencontainers.image.source=https://github.com/HipexBV/container-base-php
 
 ARG IMAGE_VERSION
 ARG PHP_VERSION
 
-ENV COMPOSER_VERSION="1.10.17 "
+ENV COMPOSER_VERSION="2.0.11"
 
 USER root
 
