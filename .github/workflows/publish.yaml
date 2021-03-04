@@ -28,9 +28,9 @@ jobs:
         -   uses: actions/cache@v2
             with:
                 path: /tmp/.buildx-cache
-                key: ${{ runner.os }}-buildx-proxy-${{ github.sha }}
+                key: ${{ runner.os }}-buildx-proxy-${{ matrix.version }}-${{ matrix.image }}-${{ github.sha }}-
                 restore-keys: |
-                    ${{ runner.os }}-buildx-proxy-
+                    ${{ runner.os }}-buildx-proxy-${{ matrix.version }}-${{ matrix.image }}-
         -   uses: docker/build-push-action@v2.2.2
             with:
                 context: .
