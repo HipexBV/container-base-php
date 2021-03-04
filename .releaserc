@@ -3,31 +3,17 @@
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
         [
-            "@semantic-release/gitlab",
+            "@semantic-release/github",
             {
-                "gitlabUrl": "https://git.emico.nl/"
+                "failComment": false
             }
         ],
         [
             "semantic-release-slack-bot",
             {
                 "notifyOnSuccess": true,
-                "notifyOnFail": true
-            }
-        ],
-        [
-            "@semantic-release/changelog",
-            {
-                "changelogFile": "docs/CHANGELOG.md"
-            }
-        ],
-        [
-            "@semantic-release/git",
-            {
-                "assets": [
-                    "docs/CHANGELOG.md"
-                ],
-                "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+                "notifyOnFail": false,
+                "packageName": "Container base image - PHP"
             }
         ]
     ]

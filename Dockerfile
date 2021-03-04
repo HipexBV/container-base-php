@@ -6,6 +6,8 @@ LABEL maintainer="Hipex.io <info@hipex.io>"
 ARG IMAGE_VERSION
 ARG PHP_VERSION
 
+ENV COMPOSER_VERSION="1.10.17 "
+
 USER root
 
 RUN apt-get update && \
@@ -35,37 +37,39 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 
 # Install PHP extensions
 RUN install-php-extensions \
-    bcmath \
-    bz2 \
-    exif \
-    gd \
-    gmp \
-    igbinary \
-    imagick \
-    intl \
-    mysqli \
-    opcache \
-    pdo_mysql \
-    redis \
-    soap \
-    sockets \
-    sysvmsg \
-    sysvsem \
-    sysvshm \
-    tidy \
-    xmlrpc \
-    xsl \
-    yaml \
-    zip \
-    zlib \
-    json \
-    pcntl
+        bcmath \
+        bz2 \
+        exif \
+        gd \
+        gmp \
+        igbinary \
+        imagick \
+        intl \
+        mysqli \
+        opcache \
+        pdo_mysql \
+        redis \
+        soap \
+        sockets \
+        sysvmsg \
+        sysvsem \
+        sysvshm \
+        tidy \
+        xsl \
+        yaml \
+        zip \
+        zlib \
+        json \
+        pcntl \
+    # Extensions limited to PHP 7.X
+    && if echo "$IMAGE_VERSION" | grep -p "7.[0-9]"; then "Installing PHP 7.X extensions" \
+        && install-php-extension xmlrpc \
+    ; fi
 
 # Prepare dev image
 RUN if echo "$IMAGE_VERSION" | grep '\-devel'; then echo "Preparing development image" \
     && install-php-extensions xdebug \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.17 \
-    && composer global require hirak/prestissimo --ignore-platform-reqs \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer "--version=${COMPOSER_VERSION}" \
     ; fi
 
 # Prepare user
