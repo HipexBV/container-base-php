@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.source=https://github.com/HipexBV/container-base-
 ARG IMAGE_VERSION
 ARG PHP_VERSION
 
-ENV COMPOSER_VERSION="1.10.17 "
+ENV COMPOSER_VERSION="2.0.11"
 
 USER root
 
