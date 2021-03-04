@@ -1,28 +1,7 @@
 # PHP Container base image
 This project contains the Hipex PHP container base image. This image follows the configuration used at the Hipex platform.
 
-Versions:
-- 7.2
-  - [ghcr.io/hipexbv/container-base-php/7.2-fpm](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.2-fpm)
-  - [ghcr.io/hipexbv/container-base-php/7.2-fpm-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.2-fpm-devel)
-  - [ghcr.io/hipexbv/container-base-php/7.2-cli](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.2-cli)
-  - [ghcr.io/hipexbv/container-base-php/7.2-cli-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.2-fpm-devel)
-- 7.3
-  - [ghcr.io/hipexbv/container-base-php/7.3-fpm](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.3-fpm)
-  - [ghcr.io/hipexbv/container-base-php/7.3-fpm-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.3-fpm-devel)
-  - [ghcr.io/hipexbv/container-base-php/7.3-cli](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.3-cli)
-  - [ghcr.io/hipexbv/container-base-php/7.3-cli-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.3-fpm-devel)
-- 7.4
-  - [ghcr.io/hipexbv/container-base-php/7.4-fpm](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.4-fpm)
-  - [ghcr.io/hipexbv/container-base-php/7.4-fpm-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.4-fpm-devel)
-  - [ghcr.io/hipexbv/container-base-php/7.4-cli](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.4-cli)
-  - [ghcr.io/hipexbv/container-base-php/7.4-cli-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F7.4-fpm-devel)
-- 8.0
-  - [ghcr.io/hipexbv/container-base-php/8.0-fpm](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F8.0-fpm)
-  - [ghcr.io/hipexbv/container-base-php/8.0-fpm-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F8.0-fpm-devel)
-  - [ghcr.io/hipexbv/container-base-php/8.0-cli](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F8.0-cli)
-  - [ghcr.io/hipexbv/container-base-php/8.0-cli-devel](https://github.com/orgs/HipexBV/packages/container/package/container-base-php%2F8.0-fpm-devel)
-
+Images are pushed to [ghcr.io/hipexbv/container-base-php](https://github.com/orgs/HipexBV/packages/container/package/container-base-php):
 
 ## Usage
 The suggested way to use the images is by building your image on top. For example
@@ -57,7 +36,7 @@ Extensions are installed using https://github.com/mlocati/docker-php-extension-i
 use your own extensions.
 
 ```Dockerfile
-FROM ghcr.io/hipexbv/container-base-php/fpm-devel:v1.0.0
+FROM ghcr.io/hipexbv/container-base-php:8.0-fpm-devel-1.0.1
 
 # Containers run non privileged
 USER root

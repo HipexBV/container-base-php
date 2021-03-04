@@ -12,13 +12,16 @@ jobs:
         strategy:
             matrix:
                 version: ["7.2", "7.3", "7.4", "8.0"]
-                image: ["cli", "cli-devel", "fpm", "fpm-devel"]
+                image: ["cli", "fpm"]
+                devel: ["", "-devel"]
         steps:
         -   uses: actions/checkout@v2
         -   uses: crazy-max/ghaction-docker-meta@v1
             id: docker_meta
             with:
-                images: ghcr.io/hipexbv/container-base-php/${{ matrix.version }}-${{ matrix.image }}
+                images: ghcr.io/hipexbv/container-base-php
+                tag-semver: |
+                    {{version}}
         -   uses: docker/setup-buildx-action@v1.0.4
         -   uses: docker/login-action@v1
             with:
@@ -35,9 +38,9 @@ jobs:
             with:
                 context: .
                 push: true
-                tags: ${{ steps.docker_meta.outputs.tags }}
+                tags: ghcr.io/hipexbv/container-base-php:${{ matrix.version }}-${{ matrix.image }}${{ matrix.devel }}-${{ steps.docker_meta.outputs.version }}
                 cache-from: type=local,src=/tmp/.buildx-cache
                 cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
                 build-args: |
-                    PHP_VERSION=${{ matrix.version }}
-                    IMAGE_VERSION=${{ matrix.image }}
+                    PHP_VERSION=${{ matrix.version }}-${{ matrix.image }}
+                    IMAGE_VERSION=${{ matrix.image }}${{ matrix.devel }}
