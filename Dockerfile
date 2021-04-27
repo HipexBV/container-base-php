@@ -43,7 +43,6 @@ RUN install-php-extensions \
         bz2 \
         exif \
         gd \
-        geoip \
         gmp \
         igbinary \
         imagick \
@@ -66,7 +65,7 @@ RUN install-php-extensions \
         pcntl \
     # Extensions limited to PHP 7.X
     && if echo "$IMAGE_VERSION" | grep -p "7.[0-9]"; then "Installing PHP 7.X extensions" \
-        && install-php-extension xmlrpc \
+        && install-php-extension xmlrpc geoip \
     ; fi
 
 # Prepare dev image
