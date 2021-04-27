@@ -25,6 +25,7 @@ RUN apt-get update && \
         g++ \
         autoconf \
         make \
+        libgeoip-dev \
         libtool \
         docker \
         gnupg \
@@ -42,6 +43,7 @@ RUN install-php-extensions \
         bz2 \
         exif \
         gd \
+        geoip \
         gmp \
         igbinary \
         imagick \
