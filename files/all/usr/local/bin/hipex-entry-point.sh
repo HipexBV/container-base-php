@@ -10,9 +10,9 @@ function envreplace() {
 }
 
 export -f envreplace
-find /app -xdev -name \*.hipextemplate -exec bash -c 'envreplace "$0"' {} \;
+find /app -xdev -name \*.hipextemplate -exec bash -c 'envreplace "$0"' {} \; || true
 
-echo "Finished env replace, continue startup"
+echo "Finished env replace, continue startup."
 
 # first arg is `-f` or `--some-option`
 if [ -z "${1#-}" ]; then
